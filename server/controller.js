@@ -33,7 +33,7 @@ module.exports = {
         // choose random fortune 
         let randomIndex = Math.floor(Math.random() * fortunes.length);
         console.log(`random index is: ${randomIndex}`);
-        let randomFortune = fortunes[randomIndex]; 
+        let randomFortune = fortunes[randomIndex].quote; 
         res.status(200).send(randomFortune); 
     },
     'getFortuneWithFriend': (req, res) => {
@@ -47,9 +47,9 @@ module.exports = {
             {id: 7, quote:`A friend is a present you give yourself.`, numberOfLikes: 0}
         ]; 
         const friendArray = [];
-        for (element of fortunes){
-            if (element.includes("friend")){
-                friendArray.push(element);
+        for (element of fortunes){ 
+            if (element.quote.includes("friend")){
+                friendArray.push(element.quote);
             }
         }
         res.status(200).send(friendArray);
@@ -74,9 +74,9 @@ module.exports = {
             {id: 7, quote:`A friend is a present you give yourself.`, numberOfLikes: 0}
         ]; 
         const filteredFortunes = []
-        for (let i = 0; i < fortunes.length; i++) {
-            if (!(fortunes[i].includes(req.params.wordToBeDeleteValue))) {
-                filteredFortunes.push(fortunes[i]);
+        for (let i = 0; i < fortunes.length; i++) { 
+            if (!(fortunes[i].quote.includes(req.params.wordToBeDeleteValue))) {
+                filteredFortunes.push(fortunes[i].quote);
             }
         }
         res.status(200).send(filteredFortunes); 

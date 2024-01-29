@@ -108,3 +108,6 @@ const deleteQuoteFunction = (event) => {
 }
 deleteQuoteForm.addEventListener('submit', deleteQuoteFunction);
 
+// DELETE A QUOTE
+
+
