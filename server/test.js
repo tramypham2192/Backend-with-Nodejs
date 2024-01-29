@@ -1,0 +1,1 @@
+console.log("a friend".includes("friend"));

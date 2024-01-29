@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment 4</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- DISPLAY ALL FORTUNE QUOTES -->
+    <section id="displayAllQuotes"></section>
+    <button id="getAllQuotes">Get all fortune quotes</button>
+    <button id="complimentButton">Get a compliment</button>
+    <button id="fortuneButton">Get a Fortune Quote</button>
+    <button id="fortuneAboutFriend">Get a Fortune quote with Friend</button>
+
+    <!-- FORM TO ADD A QUOTE TO FORTUNE LIST -->
+    <form id="addquote" action="./main.js">
+      <label for="newFortuneQuote">Add a new fortune quote:</label>
+      <input type="text" id="newFortuneQuote" name="newFortuneQuote">
+      <input type="submit" value="Add new quote">
+    </form>
+    <!-- FORM TO DELETE A QUOTE -->
+    <form id="deleteQuote" action="./main.js">
+      <label for="deleteQuoteInput">Delete the fortune quote which has this word:</label>
+      <input type="text" id="deleteQuoteInput" name="deleteQuoteInput">
+      <input type="submit" value="Delete the quote">
+    </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
