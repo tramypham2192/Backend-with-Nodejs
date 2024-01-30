@@ -1,3 +1,4 @@
+// GET A RANDOM COMPLIMENT
 const complimentBtn = document.querySelector("#complimentButton");
 
 const getCompliment = () => {
@@ -17,22 +18,30 @@ const increaseLike = (id, numberOfLikes) => {
         }
     };
     axios.get(`http://localhost:4000/api/fortunes/like/${paramsObj.params.numberOfLikes}`) 
-    .then((res) => {
-        // for (element of res.data) {
-        //     if (element.id === id){
-        //         console.log(element.numberOfLikes);
-        //     }
-        // }
+    .then((res) => { 
+        // for (element of res.data) { 
+        //     if (element.id === id){ 
+        //         console.log(element.numberOfLikes); 
+        //     } 
+        // } 
         console.log(res.data);       
-        displayAllQuotesFunc();
+        // displayAllQuotesFunc();
     })
 }
 
 // GET ALL FORTUNE QUOTES
 const getAllQuotesBtn = document.querySelector("#getAllQuotes");
+const displayAllQuotes = document.querySelector("#displayAllQuotes");
+
+// display quotes
+function displayQuotesFunc(arr) {
+    displayAllQuotes.innerHTML = ""; 
+    for (element of arr) {
+        displayQuoteCard(element);
+    }
+}
 
 // create a quote card
-const displayAllQuotes = document.querySelector("#displayAllQuotes");
 function displayQuoteCard(quote) {
     const quoteCard = document.createElement("div");
     quoteCard.classList.add('quote-card');
@@ -52,48 +61,22 @@ function displayQuoteCard(quote) {
 // display all quotes
 function displayAllQuotesFunc() {
     axios.get("http://localhost:4000/api/fortunes")
-    .then((res) => {
-        for (element of res.data) {
-            displayQuoteCard(element);
-        }
-    })
+        .then((res) => {
+            console.log(res);
+            displayQuotesFunc(res.data);
+        })
 }
 getAllQuotesBtn.addEventListener('click', displayAllQuotesFunc); 
 
-// GET FORTUNE
-const fortuneBtn = document.querySelector("#fortuneButton");
-
-const getFortune = () => {
-    axios.get("http://localhost:4000/api/fortune") 
-    .then((res) => {
-        alert(res.data);
-    })
+// DELETE A QUOTE
+function deleteQuote(id) {
+    console.log(id);
+    fetch.delete(`http://localhost:4000/api/fortune/${id}`)
+        .then((res) => {
+            console.log(res);
+            // displayQuotesFunc(res.data);
+        })
 }
-
-fortuneBtn.addEventListener('click', getFortune);
-
-// GET FORTUNE QUOTE ABOUT FRIEND
-const fortuneBtnWithFriend = document.querySelector("#fortuneAboutFriend");
-
-const getFortuneWithFriend = () => {
-    axios.get("http://localhost:4000/api/fortune/friend")
-    .then((res) => {
-        alert(res.data);
-    })
-}
-fortuneBtnWithFriend.addEventListener('click', getFortuneWithFriend);
-
-// ADD A NEW FORTUNE QUOTE
-const addQuoteForm = document.querySelector("#addquote");
-const addNewFortuneQuote = (event) => {
-    event.preventDefault();
-    const newFortuneQuoteValue = document.querySelector("#newFortuneQuote").value;
-    let body = {newFortuneQuote: newFortuneQuoteValue};
-    axios.post("http://localhost:4000/api/addNewFortuneQuote", body)
-    .then(res => alert(res.data));
-    document.querySelector("#newFortuneQuote").value = "";
-}
-addQuoteForm.addEventListener('submit', addNewFortuneQuote);
 
 // DELETE A QUOTE WITH A QUERY STRING
 const deleteQuoteForm = document.querySelector("#deleteQuote");
@@ -108,6 +91,42 @@ const deleteQuoteFunction = (event) => {
 }
 deleteQuoteForm.addEventListener('submit', deleteQuoteFunction);
 
-// DELETE A QUOTE
+// GET FORTUNE
+const fortuneBtn = document.querySelector("#fortuneButton");
+
+const getFortune = () => {
+    axios.get("http://localhost:4000/api/fortune") 
+    .then((res) => {
+        alert(res.data); 
+    }) 
+} 
+
+fortuneBtn.addEventListener('click', getFortune);
+
+// GET FORTUNE QUOTE ABOUT FRIEND
+const fortuneBtnWithFriend = document.querySelector("#fortuneAboutFriend");
+
+const getFortuneWithFriend = () => {
+    axios.get("http://localhost:4000/api/fortune/friend")
+    .then((res) => {
+        alert(res.data);
+    })
+}
+fortuneBtnWithFriend.addEventListener('click', getFortuneWithFriend);
+
+// ADD A NEW FORTUNE QUOTE 
+const addQuoteForm = document.querySelector("#addquote");
+const addNewFortuneQuote = (event) => {
+    event.preventDefault();
+    const newFortuneQuoteValue = document.querySelector("#newFortuneQuote").value;
+    let body = {newFortuneQuote: newFortuneQuoteValue};
+    axios.post("http://localhost:4000/api/addNewFortuneQuote", body)
+    .then(res => alert(res.data));
+    document.querySelector("#newFortuneQuote").value = "";
+}
+addQuoteForm.addEventListener('submit', addNewFortuneQuote);
+
+
+
 
 

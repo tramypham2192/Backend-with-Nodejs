@@ -1,3 +1,4 @@
+
 module.exports = {
     getCompliment: (req, res) => {
         const compliments = ["Gee, you're a smart cookie!", "Cool shirt!", "Your Javascript skills are stellar."];
@@ -9,6 +10,20 @@ module.exports = {
         res.status(200).send(randomCompliment);
     },
     'getAllFortuneQuotes': (req, res) => {
+        res.status(200).send(dbjson);
+    }, 
+    'deleteQuote': (req, res) => {
+        dbjson = this.getAllFortuneQuotes;
+        for (let i = 0; i < dbjson.length; i++) {
+            if (dbjson[i].id === +req.params.id) {
+                dbjson.splice(i, 1);
+            }
+        }
+        const arrAfterDelete = dbjson; 
+        res.status(200).send(arrAfterDelete);
+    },
+
+    'deleteQuoteWithInputWord': (req, res) => {
         const fortunes = [ 
             {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
             {id: 2, quote:`A dubious friend may be an enemy in camouflage.`, numberOfLikes: 0},
@@ -18,8 +33,15 @@ module.exports = {
             {id: 6, quote:`A friend asks only for your time not your money.`, numberOfLikes: 0},
             {id: 7, quote:`A friend is a present you give yourself.`, numberOfLikes: 0}
         ]; 
-        res.status(200).send(fortunes);
-    }, 
+        const filteredFortunes = []
+        for (let i = 0; i < fortunes.length; i++) { 
+            if (!(fortunes[i].quote.includes(req.params.wordToBeDeleteValue))) {
+                filteredFortunes.push(fortunes[i].quote);
+            }
+        }
+        res.status(200).send(filteredFortunes); 
+    },
+    
     'getFortune' : (req, res) => {
         const fortunes = [ 
             {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
@@ -63,24 +85,7 @@ module.exports = {
         fortunes.push(req.body.newFortuneQuote);
         res.status(200).send(fortunes);
     },
-    'deleteQuote': (req, res) => {
-        const fortunes = [ 
-            {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
-            {id: 2, quote:`A dubious friend may be an enemy in camouflage.`, numberOfLikes: 0},
-            {id: 3, quote:`A faithful friend is a strong defense.`, numberOfLikes: 0},
-            {id: 4, quote:`A feather in the hand is better than a bird in the air.`, numberOfLikes: 0},
-            {id: 5, quote:`A fresh start will put you on your way.`, numberOfLikes: 0},
-            {id: 6, quote:`A friend asks only for your time not your money.`, numberOfLikes: 0},
-            {id: 7, quote:`A friend is a present you give yourself.`, numberOfLikes: 0}
-        ]; 
-        const filteredFortunes = []
-        for (let i = 0; i < fortunes.length; i++) { 
-            if (!(fortunes[i].quote.includes(req.params.wordToBeDeleteValue))) {
-                filteredFortunes.push(fortunes[i].quote);
-            }
-        }
-        res.status(200).send(filteredFortunes); 
-    },
+
     'increaseLike': (req, res) => {
         const fortunes = [ 
             {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
@@ -99,7 +104,9 @@ module.exports = {
         //         res.status(200).send(element.numberOfLikes);
 
         //     }
-        // }
-        res.status(200).send(likedID);
-    } 
+        // } 
+        res.status(200).send(likedID); 
+    }  
 }
+
+const dbjson = require('./db.json');

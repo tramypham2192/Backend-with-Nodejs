@@ -20,7 +20,9 @@ app.get("/api/fortune/friend", controller.getFortuneWithFriend);
 // create a new fortune quote
 app.post("/api/addNewFortuneQuote", controller.addNewFortuneQuote);
 // delete a fortune quote having the word in the input
-app.delete(`/api/fortune/:wordToBeDeleteValue`, controller.deleteQuote);
+app.delete(`/api/fortune/:wordToBeDeleteValue`, controller.deleteQuoteWithInputWord);
+// delete a quote
+app.delete(`/api/fortune/?:id`, controller.deleteQuote);
 
 app.listen(4000, () => console.log("Server running on 4000")); 
 
