@@ -15,10 +15,19 @@ for (element of fortunes){
         friendArray.push(element.quote);
     }
 }
-console.log(friendArray);
+// console.log(friendArray);
 
 // choose random fortune 
 let randomIndex = Math.floor(Math.random() * fortunes.length);
-console.log(`random index is: ${randomIndex}`);
+// console.log(`random index is: ${randomIndex}`);
 let randomFortune = fortunes[randomIndex].quote; 
-console.log(randomFortune);
+// console.log(randomFortune);
+
+const dbjson = require('./db.json'); 
+
+for (let i = 0; i < dbjson.length; i++) {
+    if (dbjson[i].id == 1) {
+        dbjson.splice(i, 1);
+    }
+}
+console.log(dbjson);

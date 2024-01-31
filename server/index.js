@@ -14,7 +14,7 @@ app.get("/api/compliment", controller.getCompliment);
 // get one single fortune quote
 app.get("/api/fortune", controller.getFortune); 
 // increase the times a fortune quote is hit like 
-app.get("/api/fortunes/like/:numberOfLikes", controller.increaseLike);
+app.get("/api/fortunes/like/:id/:numberOfLikes", controller.increaseLike);
 // get a fortune quote having the friend word
 app.get("/api/fortune/friend", controller.getFortuneWithFriend);
 // create a new fortune quote
@@ -22,9 +22,11 @@ app.post("/api/addNewFortuneQuote", controller.addNewFortuneQuote);
 // delete a fortune quote having the word in the input
 app.delete(`/api/fortune/:wordToBeDeleteValue`, controller.deleteQuoteWithInputWord);
 // delete a quote
-app.delete(`/api/fortune/?:id`, controller.deleteQuote);
+app.delete(`/api/fortune/delete/:quoteID`, controller.deleteAQuote); 
 
-app.listen(4000, () => console.log("Server running on 4000")); 
+app.listen(4000, () => console.log("Server running on 4000"));
+
+
 
 
 

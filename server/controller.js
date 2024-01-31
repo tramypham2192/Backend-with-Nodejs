@@ -1,3 +1,4 @@
+const dbjson = require('./db.json'); 
 
 module.exports = {
     getCompliment: (req, res) => {
@@ -12,17 +13,16 @@ module.exports = {
     'getAllFortuneQuotes': (req, res) => {
         res.status(200).send(dbjson);
     }, 
-    'deleteQuote': (req, res) => {
-        dbjson = this.getAllFortuneQuotes;
-        for (let i = 0; i < dbjson.length; i++) {
-            if (dbjson[i].id === +req.params.id) {
+
+    'deleteAQuote': (req, res) => {
+        for (let i = 0; i < dbjson.length; i++){
+            if (dbjson[i].id == +req.params.quoteID) {
                 dbjson.splice(i, 1);
             }
         }
-        const arrAfterDelete = dbjson; 
-        res.status(200).send(arrAfterDelete);
+        res.status(200).send(dbjson);
     },
-
+    
     'deleteQuoteWithInputWord': (req, res) => {
         const fortunes = [ 
             {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
@@ -87,26 +87,11 @@ module.exports = {
     },
 
     'increaseLike': (req, res) => {
-        const fortunes = [ 
-            {id: 1, quote:`A beautiful, smart, and loving person will be coming into your life.`, numberOfLikes: 0},
-            {id: 2, quote:`A dubious friend may be an enemy in camouflage.`, numberOfLikes: 0},
-            {id: 3, quote:`A faithful friend is a strong defense.`, numberOfLikes: 0},
-            {id: 4, quote:`A feather in the hand is better than a bird in the air.`, numberOfLikes: 0},
-            {id: 5, quote:`A fresh start will put you on your way.`, numberOfLikes: 0},
-            {id: 6, quote:`A friend asks only for your time not your money.`, numberOfLikes: 0},
-            {id: 7, quote:`A friend is a present you give yourself.`, numberOfLikes: 0}
-        ]; 
-        // for (element of fortunes) {
-        const likedID = +req.params.id;
-        //     const currentNumberOfLikes = +req.params.numberOfLikes;
-        //     if (element.id == likedID){   
-        //         element.numberOfLikes =  currentNumberOfLikes + 1;
-        //         res.status(200).send(element.numberOfLikes);
-
-        //     }
-        // } 
-        res.status(200).send(likedID); 
+        for (let i = 0; i < dbjson.length; i++) {
+            if (dbjson[i].id === + req.params.id){
+                dbjson[i].numberOfLikes++;
+            }
+        }
+        res.status(200).send(dbjson); 
     }  
 }
-
-const dbjson = require('./db.json');
